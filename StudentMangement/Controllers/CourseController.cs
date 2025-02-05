@@ -16,7 +16,6 @@ namespace StudentMangement.Controllers
         {
             _courseService = courseService;
         }
-
         [HttpGet]
         public async Task<ActionResult<ResponseModel<List<GetCourseDto>>>> Index()
         {
@@ -46,5 +45,50 @@ namespace StudentMangement.Controllers
             }
         }
 
+        [HttpPatch("{id}")]
+        public async Task<ActionResult<ResponseModel<GetCourseDto>>> Index(UpdateCourseDto course, int id)
+        {
+            try
+            {
+
+                var matchedCourse = await _courseService.GetCourseByCourseId(course.Id);
+                if (matchedCourse == null)
+                {
+                    return NotFound(new ResponseModel<GetCourseDto>(false, "", null, "Course not found", "Course not found"));
+                }
+                else
+                {
+                    var updatedCourse = await _courseService.UpdateCourse(course);
+                    return Ok(new ResponseModel<GetCourseDto>(true, "Updated course successfully", updatedCourse));
+                }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new ResponseModel<GetCourseDto>(false, "", null, "Cannot update course", ex.Message));
+            }
+        }
+
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> Index(int id)
+        {
+            try
+            {
+                var matchedCourse = await _courseService.GetCourseByCourseId(id);
+                if (matchedCourse == null)
+                {
+                    return NotFound(new ResponseModel<GetCourseDto>(false, "", null, "Course not found", "Course not found"));
+                }
+                else
+                {
+                    await _courseService.DeleteCourse(id);
+                    return Ok(new ResponseModel<GetCourseDto>(true, "Deleted course successfully", matchedCourse));
+                }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new ResponseModel<GetCourseDto>(false, "", null, "Something went wrong", ex.Message));
+            }
+        }
     }
 }

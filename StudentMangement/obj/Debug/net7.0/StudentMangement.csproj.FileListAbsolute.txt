@@ -76,3 +76,4 @@
 /Users/kailashdhungana/Documents/dotnet/StudentMangement/StudentMangement/obj/Debug/net7.0/StudentM.62F95847.Up2Date
 /Users/kailashdhungana/Documents/dotnet/StudentMangement/StudentMangement/bin/Debug/net7.0/AutoMapper.dll
 /Users/kailashdhungana/Documents/dotnet/StudentMangement/StudentMangement/bin/Debug/net7.0/AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+/Users/kailashdhungana/Documents/dotnet/StudentMangement/StudentMangement/obj/Debug/net7.0/StudentMangement.sourcelink.json

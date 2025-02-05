@@ -53,9 +53,33 @@ namespace StudentMangement.Services.Implementation
             }
         }
 
-        public Task<GetCourseDto> UpdateCourse(UpdateCourseDto updateCourseDto)
+        public async Task<GetCourseDto> GetCourseByCourseId(int courseId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var course = await _uow.Repository<CourseModel>().GetByIdAsync(courseId);
+                return _mapper.Map<GetCourseDto>(course);
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("", ex);
+            }
+        }
+
+        public async Task<GetCourseDto> UpdateCourse(UpdateCourseDto updateCourseDto)
+        {
+            try
+            {
+                var course = _mapper.Map<CourseModel>(updateCourseDto);
+                _uow.Repository<CourseModel>().Update(course);
+                await _uow.SaveChangesAsync();
+                return _mapper.Map<GetCourseDto>(course);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
     }
 }

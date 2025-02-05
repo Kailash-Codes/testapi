@@ -9,5 +9,6 @@ namespace StudentMangement.Services.Interface
         Task<GetCourseDto> CreateCourse(CreateCourseDto createCourseDto);
         Task<GetCourseDto> UpdateCourse(UpdateCourseDto updateCourseDto);
         Task<GetCourseDto> DeleteCourse(int courseId);
+        Task<GetCourseDto> GetCourseByCourseId(int courseId);
     }
 }
