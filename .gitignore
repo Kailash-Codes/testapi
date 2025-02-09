@@ -1,0 +1,6 @@
+StudentMangement/bin/*
+StudentMangement/bin/*/*
+StudentMangement/bin/**/**
+StudentMangement/obj/
+.vs/
+StudentMangement/.DS_Store

@@ -35,9 +35,20 @@ namespace StudentMangement.Services.Implementation
             }
         }
 
-        public Task<GetCourseDto> DeleteCourse(int courseId)
+        public async Task<GetCourseDto> DeleteCourse(int courseId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var course = await _uow.Repository<CourseModel>().GetByIdAsync(courseId) ?? throw new Exception("Course not found");
+                _uow.Repository<CourseModel>().Delete(course);
+               await _uow.SaveChangesAsync();
+                return _mapper.Map<GetCourseDto>(course);
+                
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         public async Task<List<GetCourseDto>> GetCourse()
@@ -71,10 +82,10 @@ namespace StudentMangement.Services.Implementation
         {
             try
             {
-                var course = _mapper.Map<CourseModel>(updateCourseDto);
-                _uow.Repository<CourseModel>().Update(course);
+                var course = await _uow.Repository<CourseModel>().GetByIdAsync(updateCourseDto.Id) ?? throw new Exception("Course not found");
+                _mapper.Map(updateCourseDto, course);
                 await _uow.SaveChangesAsync();
-                return _mapper.Map<GetCourseDto>(course);
+                return _mapper.Map<GetCourseDto>(updateCourseDto);
             }
             catch (Exception ex)
             {

@@ -46,21 +46,12 @@ namespace StudentMangement.Controllers
         }
 
         [HttpPatch("{id}")]
-        public async Task<ActionResult<ResponseModel<GetCourseDto>>> Index(UpdateCourseDto course, int id)
+        public async Task<ActionResult<ResponseModel<GetCourseDto>>> Index(UpdateCourseDto updateCourse, int id)
         {
             try
             {
-
-                var matchedCourse = await _courseService.GetCourseByCourseId(course.Id);
-                if (matchedCourse == null)
-                {
-                    return NotFound(new ResponseModel<GetCourseDto>(false, "", null, "Course not found", "Course not found"));
-                }
-                else
-                {
-                    var updatedCourse = await _courseService.UpdateCourse(course);
-                    return Ok(new ResponseModel<GetCourseDto>(true, "Updated course successfully", updatedCourse));
-                }
+                    return Ok(new ResponseModel<GetCourseDto>(true, "Updated course successfully", await _courseService.UpdateCourse(updateCourse)));
+                
             }
             catch (Exception ex)
             {

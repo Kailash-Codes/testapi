@@ -12,6 +12,7 @@ namespace StudentMangement.Configurations
             CreateMap<CourseModel, GetCourseDto>().ReverseMap();
             CreateMap<CourseModel, CreateCourseDto>().ReverseMap();
             CreateMap<CourseModel, UpdateCourseDto>().ReverseMap();
+            CreateMap<GetCourseDto, UpdateCourseDto>().ReverseMap();
         }
     }
 }
